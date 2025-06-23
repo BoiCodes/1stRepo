@@ -1,0 +1,27 @@
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class GoogleSearchInspect {
+	public static void main(String[] args) {
+		WebDriver driver = new ChromeDriver();
+		driver.get("https://www.google.com");
+		
+		//Inspect Google Logo and identify the unique property for the logo
+		WebElement logo = driver.findElement(By.xpath("//div[@class= 'k1zIA rSk4se']"));
+		System.out.println("Google Logo:" + logo.getAttribute("class"));
+		
+		//Inspect "Google Search" edit box and capture the unique property
+		WebElement searchBox = driver.findElement(By.xpath("//textarea[@id='APjFqb']"));
+		System.out.println("Google Search:" + searchBox.getAttribute("id"));
+		
+		//Inspect "Search" button and capture the unique property
+		WebElement SearchBtn = driver.findElement(By.xpath("//div[@class ='lJ9FBc']//center/input[1]"));
+		System.out.println("Search Button:" + SearchBtn.getAttribute("class"));
+		
+		driver.quit();
+		
+	}
+
+}
