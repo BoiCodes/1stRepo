@@ -1,0 +1,64 @@
+import java.time.Duration;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+public class TrutimeInspect {
+	public static void main(String[] args) {
+		WebDriver driver = new ChromeDriver();
+		driver.get("https://onecognizant.cognizant.com/Home");
+		WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(15));
+		WebElement cognizantTile = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id='tilesHolder']//div[@class='tile-container' and contains(., 'Chakraborty, Baishakhee (Cognizant')]")));
+		cognizantTile.click();
+		
+		//Inspect MyTruTime Link at top left and get the unique property
+		
+		/*WebElement TopLeftKebabMenu = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@class = 'sidenav-trigger']")));
+		System.out.println("TopLeftKebabMenu:" + TopLeftKebabMenu.getAttribute("class"));
+		TopLeftKebabMenu.click();
+		WebElement MyDailyCorner = driver.findElement(By.xpath("//*[@id='complianceNameMobile'][contains(text(),'My Daily Corner')]"));
+		System.out.println("MyDailyCorner:" + MyDailyCorner.getAttribute("text"));
+		MyDailyCorner.click();
+		*/
+		WebElement TruTimeIcon = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@class='hotAppsColAppHolder'and contains(., 'TruTime')]")));
+		TruTimeIcon.click();
+		wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.id("appFrame")));
+		WebElement MyTrueTime = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@class= 'mdc-tab__text-label' and contains(text(), 'My TruTime')]")));
+		System.out.println("MyTrueTime Attribute:" + MyTrueTime.getAttribute("class"));
+		
+		//Inspect the current Month & Year(Ex: April 2024) and get the unique property
+		WebElement CurrentMonthYear = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@class= 'month-input-container']")));
+		System.out.println("CurrentMonthYear Attribute:" + CurrentMonthYear.getAttribute("class"));
+		System.out.println("Current Month & Year:" + CurrentMonthYear.getText());
+		
+		//Inspect the Month Avg and get the unique property
+		WebElement MonthAvg = driver.findElement(By.xpath("//div[@class='monthAvg display-inline-block']//div[@id = 'A2']"));
+		System.out.println("Month Average Attribute:" + MonthAvg.getAttribute("id"));
+		System.out.println("Month Average:" + MonthAvg.getText());
+		
+		//Inspect the Year Avg and get the unique property
+		WebElement YearAvg = driver.findElement(By.xpath("//*[@class='yrAvg display-inline-block']//div[@id='A3']"));
+		System.out.println("Year Average Attribute:" + YearAvg.getAttribute("id"));
+		System.out.println("Year Average:" + YearAvg.getText());
+		
+		//Inspect the Swipe Avg(For both Month & Year) and get the unique property
+		WebElement SwipeAvgMonth = driver.findElement(By.xpath("//*[@class='monthAvg display-inline-block']/div[@class='swipeAvg MonAvg']"));
+		WebElement SwipeAvgYear = driver.findElement(By.xpath("//*[@class='yrAvg display-inline-block']/div[@class='swipeAvg MonAvg']"));
+		System.out.println("Swipe Average Month Attribute: " + SwipeAvgMonth.getAttribute("class") + " Swipe Average Year Attribute: " + SwipeAvgYear.getAttribute("class"));
+		System.out.println("Swipe Average Month: " + SwipeAvgMonth.getText() + " Swipe Average Year: " + SwipeAvgYear.getText());
+		
+		//Inspect the Tru Time Avg(For both Month & Year) and get the unique property
+		WebElement TruTimeAvgMonth = driver.findElement(By.xpath("//*[@class='monthAvg display-inline-block']/div[@class='topUpAvg MonAvg']"));
+		WebElement TruTimeAvgYear = driver.findElement(By.xpath("//*[@class='yrAvg display-inline-block']/div[@class='topUpAvg MonAvg']"));
+		System.out.println("TruTime Average Month Attribute: " + TruTimeAvgMonth.getAttribute("class") + " Swipe Average Year Attribute: " + TruTimeAvgYear.getAttribute("class"));
+		System.out.println("TruTime Average Month: " + TruTimeAvgMonth.getText() + " Swipe Average Year: " + TruTimeAvgYear.getText());
+		
+		driver.quit();
+	}
+	
+
+}
